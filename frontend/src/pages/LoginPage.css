@@ -1,0 +1,74 @@
+/* ====== Background ====== */
+.login-bg {
+  background: radial-gradient(circle at 20% 20%, #0b0b0d 0%, #0d0f12 30%, #0c0c0c 100%);
+  color: #e5e5e5;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ====== Glassmorphism Card ====== */
+.glass-card {
+  background: rgba(17, 17, 19, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 0 30px rgba(50, 50, 70, 0.5);
+  transform: translateY(-2px);
+}
+
+/* ====== Input Fields ====== */
+.glass-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+/* ====== Button ====== */
+.glass-btn {
+  background: linear-gradient(135deg, #2b2b2f 0%, #1b1b1e 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: #e5e5e5;
+  font-weight: 600;
+  padding: 0.75rem;
+  transition: all 0.3s;
+}
+
+.glass-btn:hover {
+  background: linear-gradient(135deg, #3b3b3f 0%, #26262a 100%);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+}
+
+/* ====== Glow Text ====== */
+.glow-text {
+  color: #e5e5e5;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+/* ====== Scrollbar (optional aesthetic) ====== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
