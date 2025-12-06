@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard'
 import AllSubjects from './pages/AllSubjects'
 import Analysis from './pages/Analysis'
 import Attendance from './pages/Attendance'
+import Prediction from './pages/Prediction'
 const App = () => {
   const navigate=useNavigate()
   return (
@@ -21,6 +22,7 @@ const App = () => {
         <Route path='/allsubjects' element={<AllSubjects/>}/>
         <Route path='/analysis' element={<Analysis/>}/>
         <Route path='/attendance' element={<Attendance/>}/>
+        <Route path='/prediction' element={<Prediction/>}/>
       </Routes>
     </div>
   )

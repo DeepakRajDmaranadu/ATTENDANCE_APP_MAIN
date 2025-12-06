@@ -47,6 +47,10 @@ const Analysis = () => {
           <a className="text-2xl font-extrabold bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent cursor-pointer">
             🎓 Self Attendance
           </a>
+          <Link to="/prediction" className="btn btn-sm btn-outline">
+            📅 Predict Future Attendance
+          </Link>
+
         </div>
         <div className="flex-none">
           <Link to="/dashboard" className="btn btn-sm btn-outline border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
@@ -65,9 +69,8 @@ const Analysis = () => {
         <div className="bg-[#0c0c0e]/70 rounded-2xl p-8 text-center">
           <h2 className="text-2xl font-semibold text-gray-200">Overall Attendance</h2>
           <p
-            className={`text-5xl font-extrabold mt-4 ${
-              overallPercentage < 75 ? "text-red-500" : "text-green-400"
-            }`}
+            className={`text-5xl font-extrabold mt-4 ${overallPercentage < 75 ? "text-red-500" : "text-green-400"
+              }`}
           >
             {overallPercentage}%
           </p>
@@ -112,19 +115,17 @@ const Analysis = () => {
                     <td className="py-3 px-4">{sub.totalClass}</td>
                     <td className="py-3 px-4">{sub.attended}</td>
                     <td
-                      className={`py-3 px-4 font-bold ${
-                        percent < 75 ? "text-red-400" : "text-green-400"
-                      }`}
+                      className={`py-3 px-4 font-bold ${percent < 75 ? "text-red-400" : "text-green-400"
+                        }`}
                     >
                       {percent}%
                     </td>
                     <td className="py-3 px-4">
                       <span
-                        className={`badge ${
-                          status === "Good"
+                        className={`badge ${status === "Good"
                             ? "badge-success text-green-400 bg-green-900/30"
                             : "badge-error text-red-400 bg-red-900/30"
-                        } border-none px-3 py-1`}
+                          } border-none px-3 py-1`}
                       >
                         {status}
                       </span>
