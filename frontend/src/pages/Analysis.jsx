@@ -40,61 +40,117 @@ const Analysis = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-[#0b0b0d] to-[#111114] text-gray-100">
+    <div
+      className="min-h-screen text-[#e7ecef]"
+      style={{ backgroundColor: "#274c77" }}
+    >
       {/* Navbar */}
-      <div className="navbar bg-[#0f0f11]/80 backdrop-blur-md border-b border-gray-800 px-10 shadow-lg">
-        <div className="flex-1">
-          <a className="text-2xl font-extrabold bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent cursor-pointer">
-            🎓 Self Attendance
-          </a>
-          <Link to="/prediction" className="btn btn-sm btn-outline">
-            📅 Predict Future Attendance
+      <div
+        className="flex justify-between items-center px-6 py-4 border-b"
+        style={{ borderColor: "#e7ecef" }}
+      >
+        <h1 className="text-2xl font-extrabold">
+          Attendance Analysis
+        </h1>
+
+        <div className="flex gap-3">
+          <Link
+            to="/prediction"
+            className="px-4 py-2 text-sm border rounded-md transition duration-200"
+            style={{
+              borderColor: "#e7ecef",
+              color: "#e7ecef",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = "#e7ecef";
+              e.target.style.color = "#274c77";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = "transparent";
+              e.target.style.color = "#e7ecef";
+            }}
+          >
+            Predict Attendance
           </Link>
 
-        </div>
-        <div className="flex-none">
-          <Link to="/dashboard" className="btn btn-sm btn-outline border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white">
-            ← Back
+          <Link
+            to="/dashboard"
+            className="px-4 py-2 text-sm border rounded-md transition duration-200"
+            style={{
+              borderColor: "#e7ecef",
+              color: "#e7ecef",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = "#e7ecef";
+              e.target.style.color = "#274c77";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = "transparent";
+              e.target.style.color = "#e7ecef";
+            }}
+          >
+            Back
           </Link>
         </div>
       </div>
-
-      {/* Title */}
-      <h1 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-gray-200 via-gray-100 to-gray-300 bg-clip-text text-transparent">
-        Attendance Analysis 📊
-      </h1>
 
       {/* Overall Card */}
-      <div className="max-w-xl mx-auto p-[1px] rounded-2xl bg-gradient-to-b from-gray-700/40 to-black shadow-2xl backdrop-blur-xl mb-10">
-        <div className="bg-[#0c0c0e]/70 rounded-2xl p-8 text-center">
-          <h2 className="text-2xl font-semibold text-gray-200">Overall Attendance</h2>
-          <p
-            className={`text-5xl font-extrabold mt-4 ${overallPercentage < 75 ? "text-red-500" : "text-green-400"
-              }`}
-          >
-            {overallPercentage}%
-          </p>
-          <p className="mt-2 text-gray-500">
-            {overallPercentage < 75
-              ? "⚠️ You need to improve your attendance!"
-              : "✅ Great! Keep it up!"}
-          </p>
-        </div>
+      <div className="w-full max-w-md mx-auto mt-10 p-6 rounded-xl shadow-lg text-center"
+        style={{
+          backgroundColor: "#e7ecef",
+          color: "#274c77",
+          border: "1.5px solid #e7ecef",
+        }}
+      >
+        <h2 className="text-xl font-semibold">Overall Attendance</h2>
+
+        <p
+          className="text-5xl font-extrabold mt-4"
+          style={{
+            color: overallPercentage < 75 ? "#a11a1a" : "#274c77",
+          }}
+        >
+          {overallPercentage}%
+        </p>
+
+        <p
+          className="mt-2 text-sm"
+          style={{
+            color: overallPercentage < 75 ? "#a11a1a" : "#274c77",
+          }}
+        >
+          {overallPercentage < 75 ? (
+            <>
+              <i className="bi bi-exclamation-triangle"></i> Needs Improvement
+            </>
+          ) : (
+            <>
+              <i className="bi bi-check-circle" style={{color:"green"}}></i> Great Consistency
+            </>
+          )}
+
+        </p>
       </div>
 
-      {/* Table Section */}
-      <div className="max-w-5xl mx-auto overflow-x-auto rounded-2xl bg-[#0c0c0e]/50 border border-gray-800 backdrop-blur-xl shadow-xl">
-        <table className="table w-full text-gray-300">
-          <thead>
-            <tr className="bg-[#151517]/90 text-gray-200 text-sm uppercase tracking-wide">
-              <th className="py-3 px-4 text-left">SL No</th>
-              <th className="py-3 px-4 text-left">Subject Name</th>
-              <th className="py-3 px-4 text-left">Total Classes</th>
-              <th className="py-3 px-4 text-left">Attended</th>
-              <th className="py-3 px-4 text-left">Percentage</th>
-              <th className="py-3 px-4 text-left">Status</th>
+      {/* Table */}
+      <div
+        className="max-w-6xl mx-auto mt-12 overflow-x-auto rounded-xl shadow-lg"
+        style={{
+          border: "1.5px solid #e7ecef",
+        }}
+      >
+        <table className="w-full text-sm md:text-base">
+          <thead style={{ backgroundColor: "#e7ecef", color: "#274c77" }}>
+            <tr>
+              <th className="py-3 px-4">SL No</th>
+              <th className="py-3 px-4">Subject</th>
+              <th className="py-3 px-4">Total Classes</th>
+              <th className="py-3 px-4">Attended</th>
+              <th className="py-3 px-4">%</th>
+              <th className="py-3 px-4">Status</th>
             </tr>
           </thead>
+
           <tbody>
             {subjects.length > 0 ? (
               subjects.map((sub, index) => {
@@ -102,41 +158,34 @@ const Analysis = () => {
                   sub.totalClass > 0
                     ? ((sub.attended / sub.totalClass) * 100).toFixed(2)
                     : 0;
-                const status = percent >= 75 ? "Good" : "Low";
                 return (
                   <tr
                     key={index}
-                    className="hover:bg-gray-800/40 transition duration-200"
+                    className="transition duration-200 hover:opacity-80"
+                    style={{
+                      borderBottom: "1px solid #e7ecef",
+                    }}
                   >
                     <td className="py-3 px-4">{index + 1}</td>
-                    <td className="py-3 px-4 font-medium text-gray-100">
-                      {sub.subjectname}
-                    </td>
+                    <td className="py-3 px-4">{sub.subjectname}</td>
                     <td className="py-3 px-4">{sub.totalClass}</td>
                     <td className="py-3 px-4">{sub.attended}</td>
                     <td
-                      className={`py-3 px-4 font-bold ${percent < 75 ? "text-red-400" : "text-green-400"
-                        }`}
+                      className="py-3 px-4 font-bold"
+                      style={{ color: percent < 75 ? "#a11a1a" : "#e7ecef" }}
                     >
                       {percent}%
                     </td>
                     <td className="py-3 px-4">
-                      <span
-                        className={`badge ${status === "Good"
-                            ? "badge-success text-green-400 bg-green-900/30"
-                            : "badge-error text-red-400 bg-red-900/30"
-                          } border-none px-3 py-1`}
-                      >
-                        {status}
-                      </span>
+                      {percent < 75 ? "Low" : "Good"}
                     </td>
                   </tr>
                 );
               })
             ) : (
               <tr>
-                <td colSpan={6} className="text-center text-gray-500 py-8">
-                  No subjects found. Please add subjects first.
+                <td colSpan={6} className="text-center py-8 opacity-70">
+                  No subjects added
                 </td>
               </tr>
             )}
@@ -145,10 +194,10 @@ const Analysis = () => {
       </div>
 
       {/* Footer */}
-      <footer className="footer footer-center text-gray-500 mt-20 p-6 border-t border-gray-800">
-        <aside>
-          <p>© 2025 Self Attendance System | Designed by Deepak</p>
-        </aside>
+      <footer
+        className="text-center text-sm mt-14 mb-6 opacity-80"
+      >
+        © {new Date().getFullYear()} Self Attendance · Designed by Deepak
       </footer>
     </div>
   );

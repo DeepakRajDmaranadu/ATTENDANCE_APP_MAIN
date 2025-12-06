@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const Attendance = () => {
   const [subjects, setSubjects] = useState([]);
@@ -66,106 +67,102 @@ const Attendance = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center p-6">
-      <div className="card bg-base-100 shadow-2xl w-full md:w-3/4 lg:w-1/2">
-        <div className="card-body">
-          <h2 className="text-3xl font-bold text-center text-indigo-700 mb-4">
-            Daily Attendance
-          </h2>
-
-          {student && (
-            <p className="text-center text-gray-600 mb-4">
-              Welcome, <b>{student.email}</b>
-            </p>
-          )}
-
-          <div className="form-control mb-4">
-            <label className="label font-semibold text-gray-700">Select Date</label>
-            <input
-              type="date"
-              className="input input-bordered w-full"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-            />
-          </div>
-
-          {subjects.length > 0 ? (
-            <div className="space-y-4">
-              {subjects.map((sub, index) => (
-                <div
-                  key={index}
-                  className="bg-indigo-50 p-4 rounded-lg flex justify-between items-center shadow"
-                >
-                  <div>
-                    <h3 className="text-lg font-semibold text-indigo-800">
-                      {sub.subjectname}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      Total: <b>{sub.totalclass}</b> | Attended:{" "}
-                      <b>{sub.attendedclass}</b>
-                    </p>
-                  </div>
-
-                  <div className="flex gap-4 items-center">
-                    {/* Absent */}
-                    <label className="label cursor-pointer">
-                      <span className="label-text mr-2 text-gray-600">Absent</span>
-                      <input
-                        type="radio"
-                        name={sub.subjectname}
-                        value="absent"
-                        className="radio radio-error"
-                        checked={attendanceData[sub.subjectname] === "absent"}
-                        onChange={(e) =>
-                          handleAttendanceChange(sub.subjectname, e.target.value)
-                        }
-                      />
-                    </label>
-
-                    {/* Present */}
-                    <label className="label cursor-pointer">
-                      <span className="label-text mr-2 text-gray-600">Present</span>
-                      <input
-                        type="radio"
-                        name={sub.subjectname}
-                        value="present"
-                        className="radio radio-success"
-                        checked={attendanceData[sub.subjectname] === "present"}
-                        onChange={(e) =>
-                          handleAttendanceChange(sub.subjectname, e.target.value)
-                        }
-                      />
-                    </label>
-
-                    {/* Not Taken */}
-                    <label className="label cursor-pointer">
-                      <span className="label-text mr-2 text-gray-600">Not Taken</span>
-                      <input
-                        type="radio"
-                        name={sub.subjectname}
-                        value="nottaken"
-                        className="radio radio-warning"
-                        checked={attendanceData[sub.subjectname] === "nottaken"}
-                        onChange={(e) =>
-                          handleAttendanceChange(sub.subjectname, e.target.value)
-                        }
-                      />
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-gray-500 mt-6">No subjects found.</p>
-          )}
-
-          {subjects.length > 0 && (
-            <button className="btn btn-primary w-full mt-6" onClick={handleSubmit}>
-              Submit Attendance
-            </button>
-          )}
-        </div>
+    <div className="min-h-screen bg-[#274c77] flex flex-col items-center p-6 text-[#e7ecefff]">
+      {/* Navbar */}
+      <div className="w-full flex justify-between items-center bg-[#274c77ff]/80 backdrop-blur-md p-4 rounded-md mb-6 shadow-md">
+        <span className="text-2xl font-bold">🎓 MyAttendance</span>
+        <Link
+          to="/dashboard"
+          className="px-4 py-2 border border-[#e7ecefff] rounded-lg hover:bg-[#e7ecefff] hover:text-[#274c77ff] transition"
+        >
+          ← Dashboard
+        </Link>
       </div>
+
+      {/* Card */}
+      <div className="w-full max-w-3xl bg-[#e7ecefff]/10 p-6 rounded-xl shadow-2xl backdrop-blur-md">
+        <h2 className="text-3xl font-bold text-center mb-4">Daily Attendance</h2>
+
+        {student && (
+          <p className="text-center mb-4">
+            Welcome, <b>{student.email}</b>
+          </p>
+        )}
+
+        <div className="mb-6">
+          <label className="font-semibold mb-2 block">Select Date</label>
+          <input
+            type="date"
+            className="w-full p-2 rounded-md text-[#274c77ff]"
+            value={selectedDate}
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </div>
+
+        {subjects.length > 0 ? (
+          <div className="space-y-4">
+            {subjects.map((sub, idx) => (
+              <div
+                key={idx}
+                className="bg-[#e7ecefff]/10 p-4 rounded-lg flex flex-col md:flex-row justify-between items-center shadow"
+              >
+                <div className="mb-2 md:mb-0">
+                  <h3 className="text-lg font-semibold">{sub.subjectname}</h3>
+                  <p className="text-sm">
+                    Total: <b>{sub.totalclass}</b> | Attended: <b>{sub.attended}</b>
+                  </p>
+                </div>
+
+                {/* Button Group */}
+                <div className="flex gap-2 flex-wrap">
+                  {["absent", "present", "nottaken"].map((val, i) => (
+                    <React.Fragment key={val}>
+                      <input
+                        type="radio"
+                        name={sub.subjectname} // same name for the group
+                        id={`${sub.subjectname}-${i}`}
+                        value={val}
+                        checked={attendanceData[sub.subjectname] === val}
+                        onChange={(e) =>
+                          handleAttendanceChange(sub.subjectname, e.target.value)
+                        }
+                        className="hidden"
+                      />
+                      <label
+                        htmlFor={`${sub.subjectname}-${i}`}
+                        className={`px-4 py-2 rounded-lg cursor-pointer border font-medium transition text-center ${attendanceData[sub.subjectname] === val
+                            ? "bg-[#e7ecefff] text-[#274c77ff]"
+                            : "bg-transparent text-[#e7ecefff]"
+                          }`}
+                        style={{ border: "1.5px solid #e7ecefff" }}
+                      >
+                        {val.charAt(0).toUpperCase() + val.slice(1)}
+                      </label>
+                    </React.Fragment>
+                  ))}
+                </div>
+
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-center mt-6">No subjects found.</p>
+        )}
+
+        {subjects.length > 0 && (
+          <button
+            className="w-full mt-6 px-4 py-2 font-semibold rounded-lg border border-[#e7ecefff] hover:bg-[#e7ecefff] hover:text-[#274c77ff] transition"
+            onClick={handleSubmit}
+          >
+            Submit Attendance
+          </button>
+        )}
+      </div>
+
+      {/* Footer */}
+      <footer className="mt-10 text-sm opacity-80">
+        © {new Date().getFullYear()} MyAttendance · Designed with Dusk-Blue & Platinum
+      </footer>
     </div>
   );
 };

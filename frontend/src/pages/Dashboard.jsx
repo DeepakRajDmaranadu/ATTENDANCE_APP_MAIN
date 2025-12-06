@@ -20,87 +20,67 @@ const Dashboard = () => {
   };
 
   const cards = [
-    {
-      title: "📘 Subjects",
-      desc: "Manage and add your subjects here",
-      route: "/allsubjects",
-    },
-    {
-      title: "📅 Attendance",
-      desc: "Mark and track your daily attendance",
-      route: "/attendance",
-    },
-    {
-      title: "📊 Analysis",
-      desc: "Visualize your subject performance",
-      route: "/analysis",
-    },
+    { title: " Analysis", route: "/analysis", img: "bi bi-graph-up-arrow", desc: "Visual interpretation with depth & clarity" },
+    { title: " Subjects", route: "/allsubjects", img: "bi bi-window-stack", desc: "Organize content with structured elegance" },
+    { title: " Attendance", route: "/attendance", img: "bi bi-calendar-check", desc: "Track progress in refined minimal style" },
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0b0b] text-gray-100 flex flex-col">
+    <div className="min-h-screen bg-[#e7ecefff] text-[#274c77ff] flex flex-col font-inter">
+
       {/* Navbar */}
-      <div className="navbar bg-[#0f0f0f]/70 backdrop-blur-md border-b border-gray-800 px-8 shadow-[0_0_15px_rgba(0,0,0,0.6)]">
-        <div className="flex-1">
-          <span className="text-2xl font-semibold tracking-wide text-white">
-            🌌 Vibrant Academic Dashboard
-          </span>
-        </div>
-        <div className="flex-none">
-          <span className="mr-4 text-sm text-gray-400">
-            Welcome, {user?.email}
-          </span>
+      <div className="flex flex-wrap gap-4 justify-between items-center px-6 md:px-10 py-4 bg-[#274c77ff] text-[#e7ecefff] border-b border-[#e7ecefff]">
+        <h1 className="text-xl md:text-2xl font-semibold">Minimal Dashboard</h1>
+
+        <div className="flex items-center gap-3 text-sm md:text-base">
+          <span className="hidden sm:block">Welcome, {user?.email}</span>
           <button
             onClick={handlelogout}
-            className="btn btn-sm bg-[#1a1a1a] border border-gray-700 hover:bg-red-600 hover:border-red-600 text-gray-200"
+            className="px-3 py-2 md:px-4 md:py-2 border border-[#e7ecefff] rounded-md hover:bg-[#e7ecefff] hover:text-[#274c77ff] transition"
           >
             Logout
           </button>
         </div>
       </div>
 
-      {/* Main Section */}
-      <div className="flex flex-col justify-center items-center flex-1 text-center p-10">
-        <h1 className="text-3xl font-bold mb-10 text-white tracking-tight">
-          Student Dashboard
+      {/* Hero */}
+      {/* Hero Section */}
+      <div
+        className="text-center py-24 bg-cover bg-center border-b border-[#1e2749]"
+        style={{
+          // backgroundImage: "url('/hero.jpg')",
+          backgroundColor: "#274c77"
+        }}
+      >
+        <h1 className="text-5xl font-bold text-[#e4d9ff] drop-shadow-xl">
+          Elegant & Modern UI
         </h1>
+        <p className="text-lg text-[#fafaff] mt-4 drop-shadow-md max-w-2xl mx-auto">
+          A refined academic dashboard with deep indigo tones and soft pastel accents.
+        </p>
+      </div>
 
-        {/* Card Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl">
-          {cards.map((card, index) => (
-            <div
-              key={index}
-              onClick={() => card.route !== "#" && Navigate(card.route)}
-              className="group relative overflow-hidden rounded-2xl border border-gray-800 bg-gradient-to-b from-[#1a1a1a]/70 to-[#0f0f0f]/90 shadow-[0_0_25px_-10px_rgba(0,0,0,0.8)] hover:shadow-[0_0_30px_-10px_rgba(120,120,255,0.3)] backdrop-blur-md transition-all duration-300 cursor-pointer"
-            >
-              {/* Soft gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#121212] via-transparent to-transparent opacity-60"></div>
 
-              {/* Card Content */}
-              <div className="relative z-10 p-6 flex flex-col justify-between h-full text-left">
-                <h2 className="text-xl font-semibold text-gray-100 mb-3 group-hover:text-white">
-                  {card.title}
-                </h2>
-                <p className="text-sm text-gray-400 leading-relaxed">
-                  {card.desc}
-                </p>
-              </div>
+      {/* Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 py-12 md:py-16 px-6 md:px-10 bg-[#274c77]">
+        {cards.map((card, index) => (
+          <div
+            key={index}
+            onClick={() => Navigate(card.route)}
+            className="cursor-pointer bg-white text-[#274c77ff] p-5 rounded-xl shadow-sm hover:shadow-xl hover:border-[#274c77ff] border border-[#e7ecefff] transition h-44"
+          >
 
-              {/* Subtle Glow Border on Hover */}
-              <div className="absolute inset-0 rounded-2xl border border-transparent group-hover:border-indigo-400/30 transition-all duration-500"></div>
-            </div>
-          ))}
-        </div>
+            <h3 className="text-lg md:text-xl font-semibold mb-2"><i className={card.img}></i>{card.title}</h3>
+            <p className="text-sm md:text-base opacity-80">{card.desc}</p>
+          </div>
+        ))}
       </div>
 
       {/* Footer */}
-      <footer className="footer footer-center bg-[#0f0f0f]/70 backdrop-blur-sm border-t border-gray-800 text-gray-500 p-4">
-        <aside>
-          <p className="text-sm">
-            © 2025 Self Attendance System | Designed with ❤️ by Deepak
-          </p>
-        </aside>
+      <footer className="text-center py-4 bg-[#274c77ff] border-t border-[#e7ecefff] text-[#e7ecefff] text-xs md:text-sm">
+        © 2025 Minimal UI | Designed by Deepak
       </footer>
+
     </div>
   );
 };
