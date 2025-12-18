@@ -48,7 +48,7 @@ const Attendance = () => {
       absent: attendanceData[sub.subjectname] === "absent",
       nottaken: attendanceData[sub.subjectname] === "nottaken",
     }));
-
+    console.log("attarray==",attendanceArray)
     try {
       await axios.put("/subject/attendance", {
         studentid: student.email,
@@ -67,7 +67,7 @@ const Attendance = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#274c77] flex flex-col items-center p-6 text-[#e7ecefff]">
+    <div className="min-h-screen bg-[#274c77] flex flex-col items-center text-[#e7ecefff]">
       {/* Navbar */}
       <div className="w-full flex justify-between items-center bg-[#274c77ff]/80 backdrop-blur-md p-4 rounded-md mb-6 shadow-md">
         <span className="text-2xl font-bold">🎓 MyAttendance</span>
@@ -80,7 +80,7 @@ const Attendance = () => {
       </div>
 
       {/* Card */}
-      <div className="w-full max-w-3xl bg-[#e7ecefff]/10 p-6 rounded-xl shadow-2xl backdrop-blur-md">
+      <div className="w-full max-w-3xl bg-[#274c77]/10 p-6 rounded-xl shadow-2xl backdrop-blur-md">
         <h2 className="text-3xl font-bold text-center mb-4">Daily Attendance</h2>
 
         {student && (
@@ -93,7 +93,7 @@ const Attendance = () => {
           <label className="font-semibold mb-2 block">Select Date</label>
           <input
             type="date"
-            className="w-full p-2 rounded-md text-[#274c77ff]"
+            className="w-full p-2 rounded-md"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
           />
@@ -122,7 +122,7 @@ const Attendance = () => {
                         name={sub.subjectname} // same name for the group
                         id={`${sub.subjectname}-${i}`}
                         value={val}
-                        checked={attendanceData[sub.subjectname] === val}
+                        // checked={attendanceData[sub.subjectname] === val}
                         onChange={(e) =>
                           handleAttendanceChange(sub.subjectname, e.target.value)
                         }

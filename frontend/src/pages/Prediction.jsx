@@ -21,7 +21,6 @@ const Prediction = () => {
         const fetched = response.data.subjects;
         setSubjects(fetched);
 
-        // Initialize inputs
         const initial = {};
         fetched.forEach(sub => {
           initial[sub.subjectname] = { futureClasses: 0, attendPlan: 0 };
@@ -29,7 +28,6 @@ const Prediction = () => {
         setFutureData(initial);
       }
     } catch (error) {
-      console.error(error);
       toast.error("Failed to fetch subjects");
     }
   };
@@ -51,59 +49,95 @@ const Prediction = () => {
       totalFutureAttended += (sub.attended + data.attendPlan);
     });
 
-    const percent =
-      ((totalFutureAttended / totalFutureClasses) * 100).toFixed(2);
-
+    const percent = ((totalFutureAttended / totalFutureClasses) * 100).toFixed(2);
     setOverallFuture(percent);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-[#0b0b0d] to-[#111114] text-gray-100">
+    <div
+      className="min-h-screen text-[#e7ecef]"
+      style={{ backgroundColor: "#274c77" }}  // SAME THEME
+    >
 
       {/* Navbar */}
-      <div className="navbar bg-[#0f0f11]/80 border-b border-gray-800 px-10">
-        <div className="flex-1">
-          <p className="text-2xl font-extrabold bg-gradient-to-r from-gray-300 to-white bg-clip-text text-transparent">
-            📅 Future Attendance Prediction
-          </p>
-        </div>
-        <div className="flex-none">
-          <Link to="/analysis" className="btn btn-sm btn-outline text-gray-300">
-            ← Back
-          </Link>
-        </div>
+      <div
+        className="flex justify-between items-center px-6 py-4 border-b"
+        style={{ borderColor: "#e7ecef" }}
+      >
+        <h1 className="text-2xl font-extrabold">Future Attendance Prediction</h1>
+
+        <Link
+          to="/analysis"
+          className="px-4 py-2 text-sm border rounded-md transition duration-200"
+          style={{
+            borderColor: "#e7ecef",
+            color: "#e7ecef",
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = "#e7ecef";
+            e.target.style.color = "#274c77";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = "transparent";
+            e.target.style.color = "#e7ecef";
+          }}
+        >
+          ← Back
+        </Link>
       </div>
 
-      <h1 className="text-4xl font-bold text-center mt-8 mb-10 text-gray-200">
+      <h1 className="text-3xl font-bold text-center mt-8 mb-10">
         Plan & Predict 📊
       </h1>
 
-      <div className="max-w-4xl mx-auto bg-[#0d0d0f]/60 p-6 rounded-xl border border-gray-700 backdrop-blur-xl">
-        <table className="table w-full text-gray-300">
-          <thead>
-            <tr className="text-sm uppercase bg-[#151517]/90 text-red-400">
+      <div
+        className="max-w-4xl mx-auto p-6 rounded-xl shadow-lg"
+        style={{
+          border: "1.5px solid #e7ecef",
+          backgroundColor: "transparent",
+        }}
+      >
+        <table className="table w-full text-[#e7ecef]">
+          <thead style={{ backgroundColor: "#e7ecef", color: "#274c77" }}>
+            <tr>
               <th>Subject</th>
               <th>Future Classes</th>
               <th>Will Attend</th>
             </tr>
           </thead>
+
           <tbody>
             {subjects.map((sub, index) => (
-              <tr key={index}>
+              <tr
+                key={index}
+                className="transition duration-200 hover:opacity-80"
+                style={{ borderBottom: "1px solid #e7ecef" }}
+              >
                 <td className="py-3 px-4">{sub.subjectname}</td>
                 <td className="py-3 px-4">
                   <input
                     type="number"
-                    className="input input-sm bg-[#1a1a1c]"
+                    className="input input-sm"
+                    style={{
+                      borderColor: "#e7ecef",
+                      background: "transparent",
+                      color: "#e7ecef",
+                    }}
                     onChange={(e) =>
                       handleInput(sub.subjectname, "futureClasses", e.target.value)
                     }
                   />
                 </td>
+
                 <td className="py-3 px-4">
                   <input
                     type="number"
-                    className="input input-sm bg-[#1a1a1c]"
+                    className="input input-sm"
+                    style={{
+                      borderColor: "#e7ecef",
+                      background: "transparent",
+                      color: "#e7ecef",
+                    }}
                     onChange={(e) =>
                       handleInput(sub.subjectname, "attendPlan", e.target.value)
                     }
@@ -114,29 +148,69 @@ const Prediction = () => {
           </tbody>
         </table>
 
-        {/* Calculate Button */}
+        {/* Predict Button */}
         <div className="text-center mt-8">
-          <button onClick={calculateFuture} className="btn btn-primary text-white">
+          <button
+            className="px-5 py-2 rounded-md border transition duration-200"
+            style={{
+              borderColor: "#e7ecef",
+              backgroundColor: "transparent",
+              color: "#e7ecef",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.backgroundColor = "#e7ecef";
+              e.target.style.color = "#274c77";
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.backgroundColor = "transparent";
+              e.target.style.color = "#e7ecef";
+            }}
+            onClick={calculateFuture}
+          >
             🔮 Predict Attendance
           </button>
         </div>
       </div>
 
-      {/* Output Future Overall */}
+      {/* Prediction Output */}
       {overallFuture > 0 && (
-        <div className="max-w-xl mx-auto bg-[#131314] mt-10 p-6 rounded-xl text-center border border-gray-800">
-          <h2 className="text-2xl font-bold">Future Overall Attendance</h2>
-          <p className={`text-5xl mt-3 font-extrabold ${overallFuture < 75 ? "text-red-500" : "text-green-400"}`}>
+        <div
+          className="max-w-md mx-auto mt-10 p-6 text-center rounded-xl shadow-lg"
+          style={{
+            backgroundColor: "#e7ecef",
+            color: "#274c77",
+            border: "1.5px solid #e7ecef",
+          }}
+        >
+          <h2 className="text-xl font-semibold">Future Overall Attendance</h2>
+
+          <p
+            className="text-5xl font-extrabold mt-4"
+            style={{
+              color: overallFuture < 75 ? "#a11a1a" : "#274c77",
+            }}
+          >
             {overallFuture}%
+          </p>
+
+          <p className="mt-2 text-sm">
+            {overallFuture < 75 ? (
+              <span style={{ color: "#a11a1a" }}>
+                <i className="bi bi-exclamation-triangle"></i> Needs Improvement
+              </span>
+            ) : (
+              <span>
+                <i className="bi bi-check-circle" style={{ color: "green" }}></i>{" "}
+                Great Consistency
+              </span>
+            )}
           </p>
         </div>
       )}
 
       {/* Footer */}
-      <footer className="footer footer-center text-gray-500 mt-20 p-6 border-t border-gray-800">
-        <aside>
-          <p>© 2025 Self Attendance System | Designed by Deepak</p>
-        </aside>
+      <footer className="text-center text-sm mt-14 mb-6 opacity-80">
+        © {new Date().getFullYear()} Self Attendance · Designed by Deepak
       </footer>
     </div>
   );
